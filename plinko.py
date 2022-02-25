@@ -5,20 +5,38 @@ import pygame
 
 # We'll be using pygame for this game/simulation!
 pygame.init()
+
+# Setting the screen size (Don't change)
 res = (720, 720)
-pygame.display.set_caption("Plinko Game")
 screen = pygame.display.set_mode(res)
-color = (255, 255, 255)
-color_light = (170, 170, 170)
-color_dark = (100, 100, 100)
-ball_color = (0, 0, 0)
 width = screen.get_width()
 height = screen.get_height()
-smallfont = pygame.font.SysFont('Corbel', 35)
-text = smallfont.render('quit', True, color)
-ball_radius = 5
+
+# Set background colour
 screen.fill((222, 222, 222))
-bin_color = (30, 69, 142)
+
+# Set caption
+pygame.display.set_caption("Plinko Game")
+
+# Create colour shortcuts
+white = (255, 255, 255)
+color_light = (170, 170, 170)
+color_dark = (100, 100, 100)
+black = (0, 0, 0)
+red = (255, 0, 0)
+red2 = (255, 60, 0)
+orange = (255, 120, 0)
+orange2 = (255, 180, 0)
+yellow = (255, 240, 0)
+
+quit_font = pygame.font.SysFont('Corbel', 35)
+quit_text = quit_font.render('quit', True, white)
+bin_font = pygame.font.SysFont('Ariel', 25)
+
+
+# Plinko ball size
+ball_radius = 5
+
 
 # Creating a dict to store all outcomes
 # bin = {"left4": 0, "left3": 0, "left2": 0, "left1": 0, "mid": 0,
@@ -32,27 +50,41 @@ bin_color = (30, 69, 142)
 # # User will set starting amount and bet amount
 # dollars = int(input("Enter your starting amount: $"))
 # bet = int(input("Enter your bet amount: $"))
-print(height)
+
 
 # Create the plinko ball object
-
-
 def draw_ball():
-    pygame.draw.circle(screen, ball_color, (width/2, 50), ball_radius)
+    pygame.draw.circle(screen, black, (width/2, 50), ball_radius)
+
 
 # Create the bin objects
-
-
 def draw_rect():
-    pygame.draw.rect(screen, bin_color, (40, height-80, 40, 70))
-    pygame.draw.rect(screen, bin_color, (115, height-80, 40, 70))
-    pygame.draw.rect(screen, bin_color, (190, height-80, 40, 70))
-    pygame.draw.rect(screen, bin_color, (265, height-80, 40, 70))
-    pygame.draw.rect(screen, bin_color, (340, height-80, 40, 70))
-    pygame.draw.rect(screen, bin_color, (415, height-80, 40, 70))
-    pygame.draw.rect(screen, bin_color, (490, height-80, 40, 70))
-    pygame.draw.rect(screen, bin_color, (565, height-80, 40, 70))
-    pygame.draw.rect(screen, bin_color, (640, height-80, 40, 70))
+    pygame.draw.rect(screen, red, (25, height-60, 70, 40))
+    pygame.draw.rect(screen, red2, (100, height-60, 70, 40))
+    pygame.draw.rect(screen, orange, (175, height-60, 70, 40))
+    pygame.draw.rect(screen, orange2, (250, height-60, 70, 40))
+    pygame.draw.rect(screen, yellow, (325, height-60, 70, 40))
+    pygame.draw.rect(screen, orange2, (400, height-60, 70, 40))
+    pygame.draw.rect(screen, orange, (475, height-60, 70, 40))
+    pygame.draw.rect(screen, red2, (550, height-60, 70, 40))
+    pygame.draw.rect(screen, red, (625, height-60, 70, 40))
+
+
+def bin_text():
+    bin_text = bin_font.render('11.5x', True, black)
+    screen.blit(bin_text, (35, height-45))
+    screen.blit(bin_text, (635, height-45))
+    bin_text = bin_font.render('3.15x', True, black)
+    screen.blit(bin_text, (110, height-45))
+    screen.blit(bin_text, (560, height-45))
+    bin_text = bin_font.render('1.30x', True, black)
+    screen.blit(bin_text, (185, height-45))
+    screen.blit(bin_text, (485, height-45))
+    bin_text = bin_font.render('0.70x', True, black)
+    screen.blit(bin_text, (260, height-45))
+    screen.blit(bin_text, (410, height-45))
+    bin_text = bin_font.render('0.35x', True, black)
+    screen.blit(bin_text, (335, height-45))
 
 
 while True:
@@ -61,20 +93,21 @@ while True:
         if ev.type == pygame.QUIT:
             pygame.quit()
         if ev.type == pygame.MOUSEBUTTONDOWN:
-            if width-200 <= mouse[0] <= width-60 and height/2 <= mouse[1] <= height/2+40:
+            if width-155 <= mouse[0] <= width-15 and 15 <= mouse[1] <= 55:
                 pygame.quit()
 
     mouse = pygame.mouse.get_pos()
 
-    if width-200 <= mouse[0] <= width-60 and height/2 <= mouse[1] <= height/2+40:
-        pygame.draw.rect(screen, color_light, [width-200, height/2, 140, 40])
+    if width-155 <= mouse[0] <= width-15 and 15 <= mouse[1] <= 55:
+        pygame.draw.rect(screen, color_light, [width-155, 15, 140, 40])
     else:
-        pygame.draw.rect(screen, color_dark, [width-200, height/2, 140, 40])
+        pygame.draw.rect(screen, color_dark, [width-155, 15, 140, 40])
 
     draw_ball()
     draw_rect()
+    bin_text()
 
-    screen.blit(text, (width-150, height/2))
+    screen.blit(quit_text, (width-105, 20))
     pygame.display.update()
 
     # for i in range(num_trials):
