@@ -1,6 +1,6 @@
 # Plinko
 
-<h2>** Version 1.0 of Xavier's Plinko Game ** </h3> <br />
-<p>Created a test file to check stats and ensure the logic and code is functional</p>
+<h2>Version 0.2 of Xavier's Plinko Game </h2> <br />
+<p>The test file to check stats and ensure the logic and code is functional, such as the house edge and the probability.</p>
 <br>
-<h3>** Note: This is nowhere near completion, but constant updates are applied **</h4>
+<h3>Note: This is nowhere near completion, but constant updates are applied</h4>
