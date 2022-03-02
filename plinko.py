@@ -34,8 +34,10 @@ quit_text = quit_font.render('quit', True, white)
 bin_font = pygame.font.SysFont('Ariel', 25)
 
 
-# Plinko ball size
-ball_radius = 5
+# Plinko ball
+ball_radius = 8
+ball_x = width/2
+ball_y = 50
 
 
 # Creating a dict to store all outcomes
@@ -54,7 +56,7 @@ ball_radius = 5
 
 # Create the plinko ball object
 def draw_ball():
-    pygame.draw.circle(screen, black, (width/2, 50), ball_radius)
+    pygame.draw.circle(screen, black, (ball_x, ball_y), ball_radius)
 
 
 # Create the bin objects
@@ -87,7 +89,12 @@ def bin_text():
     screen.blit(bin_text, (335, height-45))
 
 
+clock = pygame.time.Clock()
+
 while True:
+
+    screen.fill((222, 222, 222))
+
     for ev in pygame.event.get():
         # When user clicks the "Quit" button
         if ev.type == pygame.QUIT:
@@ -95,6 +102,12 @@ while True:
         if ev.type == pygame.MOUSEBUTTONDOWN:
             if width-155 <= mouse[0] <= width-15 and 15 <= mouse[1] <= 55:
                 pygame.quit()
+        if ev.type == pygame.KEYUP:
+            if ev.key == pygame.K_SPACE:
+                pygame.draw.circle(screen, black, (ball_x, 50), ball_radius)
+
+    draw_ball()
+    ball_y += 0.06
 
     mouse = pygame.mouse.get_pos()
 
@@ -103,7 +116,6 @@ while True:
     else:
         pygame.draw.rect(screen, color_dark, [width-155, 15, 140, 40])
 
-    draw_ball()
     draw_rect()
     bin_text()
 
