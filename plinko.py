@@ -29,15 +29,18 @@ orange = (255, 120, 0)
 orange2 = (255, 180, 0)
 yellow = (255, 240, 0)
 
+# Balance
+n = 50000
+
 quit_font = pygame.font.SysFont('Corbel', 35)
 quit_text = quit_font.render('quit', True, white)
 bin_font = pygame.font.SysFont('Ariel', 25)
-
+balance_font = pygame.font.SysFont('Corbel', 35)
 
 # Plinko ball
 ball_radius = 8
 ball_x = width/2
-ball_y = 50
+ball_y1 = 50
 
 
 # Creating a dict to store all outcomes
@@ -55,8 +58,8 @@ ball_y = 50
 
 
 # Create the plinko ball object
-def draw_ball():
-    pygame.draw.circle(screen, black, (ball_x, ball_y), ball_radius)
+# def draw_ball():
+#     pygame.draw.circle(screen, black, (ball_x, ball_y), ball_radius)
 
 
 # Create the bin objects
@@ -87,11 +90,17 @@ def bin_text():
     screen.blit(bin_text, (410, height-45))
     bin_text = bin_font.render('0.35x', True, black)
     screen.blit(bin_text, (335, height-45))
+    balance_text = balance_font.render(str(n), True, black)
+    screen.blit(balance_text, (50, 50))
 
 
 clock = pygame.time.Clock()
 
 while True:
+
+    ball_y1 = ball_y1 + 4
+    if ball_y1 > height-60:
+        ball_y1 = 50
 
     screen.fill((222, 222, 222))
 
@@ -102,12 +111,9 @@ while True:
         if ev.type == pygame.MOUSEBUTTONDOWN:
             if width-155 <= mouse[0] <= width-15 and 15 <= mouse[1] <= 55:
                 pygame.quit()
-        if ev.type == pygame.KEYUP:
-            if ev.key == pygame.K_SPACE:
-                pygame.draw.circle(screen, black, (ball_x, 50), ball_radius)
 
-    draw_ball()
-    ball_y += 0.06
+    pygame.draw.circle(screen, black, (ball_x, ball_y1), ball_radius)
+    clock.tick(60)
 
     mouse = pygame.mouse.get_pos()
 
